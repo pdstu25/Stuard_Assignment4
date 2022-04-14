@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             val dao = db.noteDao()
             val results = dao.getAllNotes()
-            for (person in results) {
-                Log.i("STATUS_MAIN:", "read ${person}")
+            for (title in results) {
+                Log.i("STATUS_MAIN:", "read ${title}")
             }
 
             withContext(Dispatchers.Main) {
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.getItemId() == R.id.addNote_Item) {
+            addNewNote()
             return true
         } else if (item.getItemId() == R.id.sortNote_Item) {
             //addNewPerson()
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.intent_purpose_key),
             getString(R.string.intent_purpose_add_note)
         )
-        //startForAddResult.launch(intent)
+        startForAddResult.launch(intent)
     }
 
     private val startForAddResult =
@@ -123,13 +124,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, NoteActivity::class.java)
 
             intent.putExtra(
-                getString(R.string.intent_purpose_key),
-                getString(R.string.intent_purpose_update_note)
+                //getString(R.string.intent_purpose_key),
+                //getString(R.string.intent_purpose_update_note)
+                "purpose",
+                "Update"
             )
 
             val note = notes[adapterPosition]
             intent.putExtra(
-                getString(R.string.intent_key_note_id),
+                //getString(R.string.intent_key_note_id),
+                "note id",
                 note.id
             )
 
