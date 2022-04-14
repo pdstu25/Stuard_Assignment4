@@ -13,4 +13,8 @@
 
     <string name="intent_key_position">position</string>
     <string name="intent_key_note_id">note id</string>
+
+    <!-- NoteActivity -->
+    <string name="title_textview">Title:</string>
+    <string name="note_textview">Note:</string>
 </resources>
