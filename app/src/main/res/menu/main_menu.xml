@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/addNote_Item"
+        android:title="@string/addNote_Item" />
+    <item
         android:id="@+id/sortNote_Item"
         android:title="@string/sortNoteByTitle_Item" />
     <item

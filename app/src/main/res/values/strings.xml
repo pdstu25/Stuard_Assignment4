@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">WineNotes</string>
 
+    <!-- Menu Items -->
+    <string name="addNote_Item">Add Note</string>
     <string name="sortNoteByTitle_Item">Sort by title</string>
     <string name="sortNoteByLastModified_Item">Sort by last modified</string>
+
+    <!-- intent keys -->
+    <string name="intent_purpose_key">purpose</string>
+    <string name="intent_purpose_add_note">Add</string>
+    <string name="intent_purpose_update_note">Update</string>
+
+    <string name="intent_key_position">position</string>
+    <string name="intent_key_note_id">note id</string>
 </resources>
