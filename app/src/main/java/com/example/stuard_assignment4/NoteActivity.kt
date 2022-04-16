@@ -56,17 +56,14 @@ class NoteActivity : AppCompatActivity() {
         if (noteTitle.isEmpty()) {
             Toast.makeText(
                 applicationContext,
-                "First name cannot be empty", Toast.LENGTH_LONG
+                "Title cannot be empty", Toast.LENGTH_LONG
             ).show()
             return
         }
 
-        val userNotes = binding.editTextTextMultiLine.getText().toString().trim()
+        var userNotes = binding.editTextTextMultiLine.getText().toString().trim()
         if (userNotes.isEmpty()) {
-            Toast.makeText(
-                applicationContext,
-                "Last name cannot be empty", Toast.LENGTH_LONG
-            ).show()
+            userNotes = " "
             return
         }
 
@@ -79,7 +76,7 @@ class NoteActivity : AppCompatActivity() {
                 // when adding, set primary key (id) to 0
                 val notes = Note(0, noteTitle, userNotes, "9999")
                 noteId = noteDao.addNote(notes)
-                Log.i("STATUS_NAME", "inserted new person: ${notes}")
+                Log.i("STATUS_NAME", "inserted new note: ${notes}")
             } else {
                 // update a current person in the database
                 val notes = Note(noteId, noteTitle, userNotes, "9999")
