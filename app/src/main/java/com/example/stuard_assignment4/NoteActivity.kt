@@ -48,7 +48,7 @@ class NoteActivity : AppCompatActivity() {
             }
         }
 
-        setTitle("${purpose} Name(NoteActivity/setTitle)")
+        setTitle("${purpose} Note")
     }
 
     override fun onBackPressed() {
@@ -73,19 +73,15 @@ class NoteActivity : AppCompatActivity() {
             var currentTime = LastModified()
 
             if (purpose.equals(getString(R.string.intent_purpose_add_note))) {
-                // add the new person to the database
+                // add the new note to the database
                 // when adding, set primary key (id) to 0
                 val notes = Note(0, noteTitle, userNotes, "${currentTime.getCurrentTime()}")
                 noteId = noteDao.addNote(notes)
-                Log.i("STATUS_NAME", "inserted new note: ${notes}")
             } else {
-                // update a current person in the database
+                // update current note
                 val notes = Note(noteId, noteTitle, userNotes, "${currentTime.getCurrentTime()}")
                 noteDao.updateNotes(notes)
-                Log.i("STATUS_NAME", "updated existing person: ${notes}")
             }
-
-            Log.i("STATUS_NAME", "result_id: ${noteId}")
 
             val intent = Intent()
 

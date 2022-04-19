@@ -44,8 +44,6 @@ class MainActivity : AppCompatActivity() {
         adapter = MyAdapter()
         binding.mainActivityRecylerView.setAdapter(adapter)
 
-        Log.i("STATUS_TIME", currentTime.toString())
-
         loadAllNotes()
     }
 
@@ -54,9 +52,6 @@ class MainActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             val dao = db.noteDao()
             val results = dao.getAllNotes()
-            for (title in results) {
-                Log.i("STATUS_MAIN:", "read ${title}")
-            }
 
             withContext(Dispatchers.Main) {
                 notes.clear()
@@ -71,9 +66,6 @@ class MainActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             val dao = db.noteDao()
             val results = dao.orderByLM()
-            for (title in results) {
-                Log.i("STATUS_MAINLM:", "read ${title}")
-            }
 
             withContext(Dispatchers.Main) {
                 notes.clear()
@@ -88,9 +80,6 @@ class MainActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             val dao = db.noteDao()
             val results = dao.orderByTitle()
-            for (title in results) {
-                Log.i("STATUS_MAINLM:", "read ${title}")
-            }
 
             withContext(Dispatchers.Main) {
                 notes.clear()
@@ -161,15 +150,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, NoteActivity::class.java)
 
             intent.putExtra(
-                //getString(R.string.intent_purpose_key),
-                //getString(R.string.intent_purpose_update_note)
                 "purpose",
                 "Update"
             )
 
             val note = notes[adapterPosition]
             intent.putExtra(
-                //getString(R.string.intent_key_note_id),
                 "note id",
                 note.id
             )
