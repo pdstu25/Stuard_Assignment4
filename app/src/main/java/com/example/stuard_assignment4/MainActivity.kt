@@ -218,8 +218,10 @@ class MainActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             val note = notes[position]
+            val noteReadUTC = LastModified()
+
             holder.view.setText(
-                "${note.title}, ${note.notes} "
+                "${note.title}, ${noteReadUTC.getUTCDate(note.lastModified)} "
             )
         }
 
