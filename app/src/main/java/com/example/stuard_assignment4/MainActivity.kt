@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: MyAdapter
     private val notes = mutableListOf<Note>()
+    private val currentTime = LastModified()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MyAdapter()
         binding.mainActivityRecylerView.setAdapter(adapter)
+
+        Log.i("STATUS_TIME", currentTime.toString())
 
         loadAllNotes()
     }
@@ -63,6 +66,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadAllNotesLM() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            val dao = db.noteDao()
+            val results = dao.orderByLM()
+            for (title in results) {
+                Log.i("STATUS_MAINLM:", "read ${title}")
+            }
+
+            withContext(Dispatchers.Main) {
+                notes.clear()
+                notes.addAll(results)
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun loadAllNotesByTitle() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            val dao = db.noteDao()
+            val results = dao.orderByTitle()
+            for (title in results) {
+                Log.i("STATUS_MAINLM:", "read ${title}")
+            }
+
+            withContext(Dispatchers.Main) {
+                notes.clear()
+                notes.addAll(results)
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
@@ -74,10 +111,10 @@ class MainActivity : AppCompatActivity() {
             addNewNote()
             return true
         } else if (item.getItemId() == R.id.sortNote_Item) {
-            //addNewPerson()
+            loadAllNotesByTitle()
             return true
         } else if (item.getItemId() == R.id.sortModified_item) {
-            //deleteAllPeople()
+            loadAllNotesLM()
             return true
         }
         return super.onOptionsItemSelected(item)

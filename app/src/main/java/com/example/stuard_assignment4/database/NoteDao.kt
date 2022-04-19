@@ -30,9 +30,15 @@ interface NoteDao {
     @Query("DELETE FROM Note")
     fun deleteAllNotes()
 
-    @Query("SELECT * FROM note ORDER BY title")
+    @Query("SELECT * FROM note")
     fun getAllNotes(): List<Note>
 
     @Query("SELECT * FROM note WHERE id = :noteId")
     fun getNotes(noteId : Long) : Note
+
+    @Query("SELECT * FROM note ORDER BY last_modified DESC")
+    fun orderByLM() : List<Note>
+
+    @Query("SELECT * FROM note ORDER BY title")
+    fun orderByTitle(): List<Note>
 }
