@@ -62,10 +62,6 @@ class NoteActivity : AppCompatActivity() {
         }
 
         var userNotes = binding.editTextTextMultiLine.getText().toString().trim()
-        if (userNotes.isEmpty()) {
-            userNotes = " "
-            return
-        }
 
         CoroutineScope(Dispatchers.IO).launch {
             val noteDao = AppDatabase.getDatabase(applicationContext)
